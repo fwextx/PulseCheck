@@ -4,6 +4,8 @@ PulseCheck is a simple, lightweight, and open-source uptime monitoring tool desi
 ## How to use
 > Type in a functioning IP or URL into the Search Bar.
 
+![image](https://github.com/user-attachments/assets/64ee4410-802b-430b-93da-9cbae9771996)
+
 ## Feautures:
 - Monitor both HTTP/HTTPS URLs and raw IP addresses seamlessly.
 - Displays live status with online/offline indicators and latency measurements.
@@ -13,5 +15,3 @@ PulseCheck is a simple, lightweight, and open-source uptime monitoring tool desi
 - Open-source and extensible — perfect for customization and learning.
 - Easy to add and remove targets dynamically during runtime.
 - Minimal dependencies for easy setup and deployment.
-
-  ![image](https://github.com/user-attachments/assets/64ee4410-802b-430b-93da-9cbae9771996)
