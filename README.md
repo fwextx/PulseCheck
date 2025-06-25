@@ -1,5 +1,5 @@
 # PulseCheck
-PulseCheck is a simple, lightweight, and open-source uptime monitoring tool designed to help users track the availability and responsiveness of websites and IP addresses. Whether you want to monitor your own servers, websites, or critical network resources, PulseCheck provides an easy-to-use, sleek dark mode interface to keep an eye on your targets in real-time.
+PulseCheck is a simple, lightweight, and open-source uptime monitoring tool designed to help users track the availability and responsiveness of websites and IP addresses.
 
 **DISCLAIMER! This file will get flagged by some Antiviruses for being packaged with PyInstaller. If you do not trust the file, you can compile it yourself with Python 3.13 and all of the requirements in requirements.txt installed.**
 
