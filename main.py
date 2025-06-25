@@ -17,8 +17,6 @@ class PulseCheckApp(ctk.CTk):
         self.geometry("600x400")
         self.resizable(False, False)
 
-
-        # Initialize targets **before** using it
         self.targets = []
         self.target_labels = []
 
@@ -36,18 +34,15 @@ class PulseCheckApp(ctk.CTk):
         self.add_button = ctk.CTkButton(self.input_frame, text="Add", command=self.add_target)
         self.add_button.pack(side="left", padx=(5, 10))
 
-        # === Target List Display ===
         self.target_frame = ctk.CTkScrollableFrame(self, width=550, height=260)
         self.target_frame.pack(pady=10, padx=20, fill="both", expand=True)
 
-        # Create the Monitor instance but DO NOT start yet
         self.monitor = Monitor(
             interval=10,
             get_targets_callback=lambda: self.targets,
             update_callback=self.update_statuses
         )
 
-        # Start the monitor AFTER 500ms to ensure GUI is fully initialized
         self.after(500, self.monitor.start)
 
     def update_statuses(self, results):
@@ -65,8 +60,6 @@ class PulseCheckApp(ctk.CTk):
         url = self.input_entry.get().strip()
         if not url:
             return
-
-        # Optional: prepend http if not present
 
         self.targets.append(url)
         self.input_entry.delete(0, "end")
