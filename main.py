@@ -9,10 +9,37 @@ from matplotlib.figure import Figure
 import datetime
 import matplotlib.dates as mdates
 import json
+import os
 
-with open("config.json", "r") as f:
-    config = json.load(f)
+def get_config_path():
+    base = os.getenv('LOCALAPPDATA') or os.path.expanduser("~/.config")
+    config_dir = os.path.join(base, "PulseCheck")
+    os.makedirs(config_dir, exist_ok=True)
+    return os.path.join(config_dir, "config.json")
 
+def load_config():
+    path = get_config_path()
+    if not os.path.exists(path):
+        print("[PulseCheck] Config not found, creating default config...")
+        default_config = {
+            "interval": 10,
+            "graph_view": "daily"
+        }
+        with open(path, "w") as f:
+            json.dump(default_config, f, indent=4)
+        print(f"[PulseCheck] Config created at: {path}")
+        return default_config
+    else:
+        print(f"[PulseCheck] Config loaded from: {path}")
+        with open(path, "r") as f:
+            return json.load(f)
+
+def save_config(config):
+    path = get_config_path()
+    with open(path, "w") as f:
+        json.dump(config, f, indent=4)
+
+config = load_config()
 cInterval = config.get("monitor_interval", 10)
 ctk.set_appearance_mode("Dark")
 ctk.set_default_color_theme("blue")
@@ -89,16 +116,13 @@ class PulseCheckApp(ctk.CTk):
             status, latency = results.get(url, (False, 0))
             label = self.target_labels[i]
 
-            # Save history
             self.history.setdefault(url, []).append((timestamp, status, latency))
 
-            # GUI update
             if status:
                 label.configure(text=f"{url} ✅ Online ({latency:.1f} ms)", text_color="green")
             else:
                 label.configure(text=f"{url} ❌ Offline", text_color="red")
 
-        # Refresh graph for currently selected URL
         if hasattr(self, 'last_graph_url'):
             self.show_graph(self.last_graph_url)
 
