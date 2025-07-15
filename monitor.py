@@ -1,15 +1,10 @@
 import threading
 import httpx
 import time
-from ping3 import ping  # You need to `pip install ping3`
+from ping3 import ping
 
 class Monitor:
     def __init__(self, interval, get_targets_callback, update_callback):
-        """
-        interval: seconds between checks
-        get_targets_callback: function to fetch current list of URLs/IPs
-        update_callback: function to pass status updates to the GUI
-        """
         self.interval = interval
         self.get_targets = get_targets_callback
         self.update_status = update_callback
@@ -35,7 +30,7 @@ class Monitor:
                         latency = (time.time() - start) * 1000
                         results[url] = (200 <= r.status_code < 400, latency)
                     else:
-                        latency_sec = ping(url, timeout=3)  # ping returns seconds or None
+                        latency_sec = ping(url, timeout=3)
                         is_online = latency_sec is not None
                         latency = latency_sec * 1000 if is_online else 0
                         results[url] = (is_online, latency)
